@@ -6,24 +6,55 @@ from tkinter import filedialog
 print(Tcl().eval("info patchlevel"))
 window = Tk()
 window.title("yt downloader")
-window.geometry("300x250")
+window.geometry("400x250")
 
 def puth_select():
     puth = filedialog.askdirectory()
     print(puth)
+    label_puth_to['text'] = puth
     
+    
+quality_list = ['1080p','720p','480p','160p']
+format_list = ['mp4','mp3','webm']
+
+frame_url = ttk.Frame()
+frame_puth = ttk.Frame()
+frame_quality = ttk.Frame()
+frame_format = ttk.Frame()
+
+
+
+combobox_quality = ttk.Combobox(frame_quality,values=quality_list)
+combobox_format = ttk.Combobox(frame_format,values=format_list)
+button_puth = ttk.Button(frame_puth,text='выбрать путь',command=puth_select)
+label_url = Label(frame_url,text='url: ')
+label_puth = Label(frame_puth,text='puth: ')
+label_puth_to = Label(frame_puth,text='')
+label_quality = Label(frame_quality,text='quality: ')
+label_format = Label(frame_format,text='format: ')
+entry = ttk.Entry(frame_url)
+checkbutton = ttk.Checkbutton(frame_url,text='playlist',)
 button_download = ttk.Button(text='скачать')
-button_puth = ttk.Button(text='выбрать путь',command=puth_select)
-label_url = Label(text='url: ')
-entry = ttk.Entry()
-checkbutton = ttk.Checkbutton(text='playelist',)
 
-
+label_format.pack(side='left',anchor='w')
 label_url.pack(side='left',anchor='nw')
+label_puth.pack(side='left',anchor='w')
+label_quality.pack(side='left',anchor='w')
+button_puth.pack(side='left',anchor='w')
+label_puth_to.pack(side='left',anchor='w')
 entry.pack(side='left',anchor='nw')
 checkbutton.pack(side='right',anchor='ne')
-button_puth.pack()
+combobox_format.pack(side='left',anchor='w')
+combobox_quality.pack(side='left',anchor='w')
+frame_url.pack(anchor='nw')
+frame_puth.pack(anchor='w')
+frame_quality.pack(anchor='w')
+frame_format.pack(anchor='w')
+
+
+
 button_download.pack(anchor="se")
+
 
 
 window.mainloop()
