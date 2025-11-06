@@ -11,7 +11,7 @@ ydl_opts = {
     'audioformat': 'MP3',  # Формат аудиофайла
     'outtmpl': '%(title)s.%(ext)s',  # Шаблон имени файла
     'noplaylist': True ,
-    'cookies': '' ,
+    'cookies': 'cookies.txt' ,
 }
 
 window = Tk()
