@@ -4,14 +4,36 @@ from tkinter import ttk
 from tkinter import filedialog
 
 print(Tcl().eval("info patchlevel"))
+
+ydl_opts = {
+    'format': 'bestaudio/best',
+    'extractaudio': True,  # Извлекать аудио
+    'audioformat': 'MP3',  # Формат аудиофайла
+    'outtmpl': '%(title)s.%(ext)s',  # Шаблон имени файла
+    'noplaylist': True ,
+    'cookies': '' ,
+}
+
 window = Tk()
 window.title("yt downloader")
-window.geometry("400x250")
+window.geometry("400x150")
 
 def puth_select():
     puth = filedialog.askdirectory()
     print(puth)
     label_puth_to['text'] = puth
+    
+    
+def download():
+    urls = [entry.get()]
+    print(urls)
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        for url in urls:
+            try:
+                ydl.download([url])
+            except Exception as e:
+                print(f"Ошибка при скачивании {url}: {e}. Продолжаем...")
     
     
 quality_list = ['1080p','720p','480p','160p']
@@ -34,7 +56,7 @@ label_quality = Label(frame_quality,text='quality: ')
 label_format = Label(frame_format,text='format: ')
 entry = ttk.Entry(frame_url)
 checkbutton = ttk.Checkbutton(frame_url,text='playlist',)
-button_download = ttk.Button(text='скачать')
+button_download = ttk.Button(text='скачать',command=download)
 
 label_format.pack(side='left',anchor='w')
 label_url.pack(side='left',anchor='nw')
@@ -58,29 +80,3 @@ button_download.pack(anchor="se")
 
 
 window.mainloop()
-
-
-
-
-
-
-
-
-
-# ydl_opts = {
-#     'format': 'bestaudio/best',
-#     'extractaudio': True,  # Извлекать аудио
-#     'audioformat': 'MP3',  # Формат аудиофайла
-#     'outtmpl': '%(title)s.%(ext)s',  # Шаблон имени файла
-#     'noplaylist': False ,
-# }
-
-# # Список URL для скачивания
-# playlist_urls = []  # Замените многоточие на ваши URL
-
-# with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-#     for url in playlist_urls:
-#         try:
-#             ydl.download([url])
-#         except Exception as e:
-#             print(f"Ошибка при скачивании {url}: {e}. Продолжаем...")
