@@ -6,24 +6,28 @@ from tkinter import filedialog
 print(Tcl().eval("info patchlevel"))
 
 ydl_opts = {
-    'format': 'bestaudio/best',
-    'extractaudio': True,  # Извлекать аудио
-    'audioformat': 'MP3',  # Формат аудиофайла
+    'format': 'bestaudio/best', #TODO
+    'extractaudio': True,  #TODO
+    'audioformat': 'MP3',  #TODO
     'outtmpl': '%(title)s.%(ext)s',  # Шаблон имени файла
-    'noplaylist': True ,
-    'cookies': 'cookies.txt' ,
+    'noplaylist': True , # переключение плейлиста
+    'cookies': 'cookies.txt' , #куки
 }
-ydl_opts['noplaylist'] = False
+
 
 window = Tk()
 window.title("yt downloader")
 window.geometry("400x150")
+var = BooleanVar()
 
 def puth_select():
     puth = filedialog.askdirectory()
     print(puth)
     label_puth_to['text'] = puth
     
+    
+def playlist():
+    ydl_opts['noplaylist'] = var.get()
     
 def download():
     urls = [entry.get()]
@@ -39,6 +43,8 @@ def download():
     
 quality_list = ['1080p','720p','480p','160p']
 format_list = ['mp4','mp3','webm']
+
+#TODO УПОРЯДОЧИТЬ КОД
 
 frame_url = ttk.Frame()
 frame_puth = ttk.Frame()
@@ -56,7 +62,7 @@ label_puth_to = Label(frame_puth,text='')
 label_quality = Label(frame_quality,text='quality: ')
 label_format = Label(frame_format,text='format: ')
 entry = ttk.Entry(frame_url)
-checkbutton = ttk.Checkbutton(frame_url,text='playlist',)
+checkbutton = ttk.Checkbutton(frame_url,text='playlist',variable=var,command=playlist)
 button_download = ttk.Button(text='скачать',command=download)
 
 label_format.pack(side='left',anchor='w')
@@ -73,11 +79,7 @@ frame_url.pack(anchor='nw')
 frame_puth.pack(anchor='w')
 frame_quality.pack(anchor='w')
 frame_format.pack(anchor='w')
-
-
-
 button_download.pack(anchor="se")
-
 
 
 window.mainloop()
