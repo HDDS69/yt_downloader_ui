@@ -13,6 +13,7 @@ ydl_opts = {
     'noplaylist': True ,
     'cookies': 'cookies.txt' ,
 }
+ydl_opts['noplaylist'] = False
 
 window = Tk()
 window.title("yt downloader")
